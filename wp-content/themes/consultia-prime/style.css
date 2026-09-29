@@ -1,0 +1,25 @@
+/*
+Theme Name: Consultia Prime
+Theme URI: https://novamira.ai/
+Author: Consultia
+Author URI: https://novamira.ai/
+Description: Premium landing theme for Consultia, a capital-markets compliance and advisory firm. Owns all presentation, including the [consultia_ticker] plugin surface, which ships no CSS of its own. The front page is editor-managed; the theme supplies the section layouts as block patterns (inc/patterns.php) and the tokens in theme.json. Realizes the saved Novamira design `consultia-institutional-navy`.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 7.1
+Requires PHP: 8.1
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: consultia-prime
+Tags: one-column, custom-menu, custom-logo, featured-images, translation-ready
+*/
+
+/*
+ * The full stylesheet lives in assets/styles.css (tokens in :root) and the
+ * self-hosted faces in assets/fonts.css. Both are enqueued from functions.php
+ * with a filemtime version so token edits bust the cache.
+ *
+ * This file is intentionally header-only: WordPress requires it to exist and
+ * read, but the theme's rules are kept in assets/ so the token layer can be
+ * read in one place.
+ */

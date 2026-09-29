@@ -1,0 +1,87 @@
+# ==============================================================================
+# WORDPRESS CORE
+# ==============================================================================
+# Ignore everything in the root except the wp-content directory and crucial files
+/*
+!.gitignore
+!README.md
+!composer.json
+!wp-content/
+
+# Explicitly ignore standard WordPress core files and folders if uncovered by /*
+/wp-admin/
+/wp-includes/
+/index.php
+/license.txt
+/readme.html
+/wp-*.php
+/xmlrpc.php
+
+# ==============================================================================
+# CONFIGURATIONS & SENSITIVE DATA
+# ==============================================================================
+# Never commit database credentials, salts, or server configurations
+wp-config.php
+.htaccess
+nginx.conf
+user.ini
+*.sql
+*.sqlite
+
+# ==============================================================================
+# WP-CONTENT DIRECTORY
+# ==============================================================================
+# Ignore everything inside wp-content except plugins and themes
+wp-content/*
+!wp-content/plugins/
+!wp-content/themes/
+!wp-content/mu-plugins/
+
+# Ignore user uploads, backups, and caches completely
+wp-content/uploads/
+wp-content/blogs.dir/
+wp-content/upgrade/
+wp-content/cache/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+wp-content/backup-db/
+
+# ==============================================================================
+# PLUGINS & THEMES (The Whitelist Approach)
+# ==============================================================================
+# Step 1: Ignore all plugins and themes by default
+wp-content/plugins/*
+wp-content/themes/*
+
+# Step 2: WHITELIST YOUR CUSTOM PLUGINS / THEMES BELOW
+# Remove the '#' from the lines below and change to your actual folder names
+!wp-content/themes/consultia-prime/
+!wp-content/plugins/consultia-ticker/
+
+# Ignore default bundled themes
+wp-content/themes/twenty*/
+
+# Ignore the default Hello Dolly plugin
+wp-content/plugins/hello.php
+
+# ==============================================================================
+# DEVELOPMENT TOOLS & OPERATING SYSTEMS
+# ==============================================================================
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Build tools and package manager dependencies
+node_modules/
+vendor/
+.npm/
+.yarn/
+dist/
+*.log
