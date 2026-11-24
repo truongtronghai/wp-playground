@@ -1,0 +1,60 @@
+# ==============================================================================
+# WP-CONTENT ROOT
+# ==============================================================================
+# Ignore everything in wp-content by default
+/*
+!.gitignore
+!README.md
+!index.php
+
+# Allow Git to descend into plugins and themes directories
+!plugins/
+!themes/
+!mu-plugins/
+
+# Ignore user uploads, upgrades, backups, and caches
+uploads/
+upgrade/
+cache/
+backup-db/
+blogs.dir/
+novamira-sandbox/
+advanced-cache.php
+wp-cache-config.php
+
+# ==============================================================================
+# PLUGINS & THEMES (Whitelist Approach)
+# ==============================================================================
+# Step 1: Ignore all plugins and themes by default
+plugins/*
+themes/*
+
+# Step 2: Whitelist your custom theme(s) and plugin(s)
+!themes/consultia/
+!themes/consultia-prime/
+!plugins/consultia-ticker/
+
+# ==============================================================================
+# SENSITIVE DATA & ARTIFACTS
+# ==============================================================================
+*.sql
+*.sqlite
+*.zip
+*.tar.gz
+*.log
+
+# ==============================================================================
+# OS & EDITOR ARTIFACTS
+# ==============================================================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+node_modules/
+vendor/
+.npm/
+.yarn/
+dist/

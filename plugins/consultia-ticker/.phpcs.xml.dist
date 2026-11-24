@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset name="Consultia Ticker Coding Standards">
+	<description>WordPress Coding Standards for the Consultia Ticker plugin.</description>
+
+	<rule ref="WordPress"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="consultia-ticker"/>
+			</property>
+		</properties>
+	</rule>
+
+	<config name="minimum_wp_version" value="6.0"/>
+</ruleset>

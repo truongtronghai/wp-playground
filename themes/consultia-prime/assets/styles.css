@@ -1,0 +1,1163 @@
+/* =========================================================
+   Consultia Prime — port of template/assets/styles.css
+   Capital-markets compliance & advisory.
+
+   This file is a WordPress port of the static reference, not a
+   redesign. Every value below is the value in
+   template/assets/styles.css. Where the two differ, the reason
+   is stated in a comment — there are only three kinds of
+   difference, all of them forced by WordPress:
+
+     1. Token names. The reference names tokens after the colour
+        they hold (--ink is the dark ground, --text is the light
+        type). This file names them by role (--bg, --ink). The
+        values are identical, one for one.
+     2. `.btn` is also the core Button block. The reference's
+        two looks — .btn and .btn-solid — are registered as
+        the block styles `outline` (the default look) and
+        `solid`, so an editor-authored button is pixel-identical
+        to a template one.
+     3. The primary nav collapses to a Menu button under 980px.
+        The reference just hides the list, which would leave
+        mobile visitors with no navigation at all.
+
+   The consultia-ticker plugin emits .ticker / .ticker-track
+   and ships no CSS of its own; those rules live here.
+
+   Tokens are declared once in :root. Do not hardcode below a
+   value that has a token: change the token, not the rule.
+   ========================================================= */
+
+:root {
+	/* --- Reference tokens, verbatim values, role-based names --- */
+	--bg: #0b1826; /* reference: --ink   */
+	--surface: #122335; /* reference: --ink-2 */
+	--surface-2: #182c40; /* reference: --ink-3 */
+	--paper: #eff4f7;
+	--navy: #0a4a7e;
+	--navy-deep: #073055;
+	--accent: #7a8d39; /* reference: --green */
+	--accent-light: #9fac70; /* reference: --green-light */
+	--blue-light: #6396cd; /* reference: --blue-light; declared there, still unused */
+	--slate: #8fa0ae;
+	--ink: #e8ecee; /* reference: --text */
+	--ink-dim: #b7c2cc; /* reference: --text-dim */
+	--rule: rgba(122, 141, 57, 0.35);
+	--container: 1180px; /* reference: --maxw */
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+	/* Anchor targets clear the sticky header. Not in the
+	   reference, which has no anchored links; harmless. */
+	scroll-padding-top: 100px;
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--ink);
+	font-family: 'IBM Plex Sans', sans-serif;
+	font-size: 16px;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* The reference resets margin and padding on every element with `*`. A
+   wholesale reset cannot be done here: the browser default `ul { padding-left }`
+   is what draws a core List block's markers, and zeroing it on `*` would
+   leave every list in the editor unmarkable and wrong. So the reset is
+   applied to the elements the reference's own four pages contain. The
+   list-style resets stay on the three lists the reference styles
+   (`.network-col ul`, `.ticker-track` handles, `.site-nav ul`), which is
+   where the reference has them too. */
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+li,
+blockquote,
+cite,
+figure,
+figcaption,
+dl,
+dd,
+dt,
+fieldset,
+legend {
+	margin: 0;
+	padding: 0;
+}
+
+/* The reference styles h1–h3 as display type and leaves h4 to be
+   defined by whatever contains it (both of its h4 rules do). */
+h1,
+h2,
+h3 {
+	font-family: 'Fraunces', serif;
+	font-weight: 500;
+	letter-spacing: -0.01em;
+	color: var(--ink);
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+img {
+	max-width: 100%;
+	display: block;
+}
+
+.wrap {
+	max-width: var(--container);
+	margin: 0 auto;
+	padding: 0 32px;
+}
+
+.mono {
+	font-family: 'IBM Plex Mono', monospace;
+	letter-spacing: 0.04em;
+}
+
+.skip-link {
+	position: absolute;
+	left: -999px;
+	top: auto;
+	background: var(--paper);
+	color: var(--navy);
+	padding: 12px 18px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 13px;
+	z-index: 200;
+}
+
+.skip-link:focus {
+	left: 16px;
+	top: 16px;
+}
+
+.eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 12px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--accent-light);
+}
+
+.eyebrow::before {
+	content: '';
+	width: 22px;
+	height: 1px;
+	background: var(--accent);
+}
+
+/* ---------- Buttons ---------- */
+/* NOTE ON THE NEXT TWO BLOCKS
+   The reference declares .btn with every property, and .btn-solid as a
+   two-property overlay. Here the same base declaration is written once
+   as `.btn, .wp-block-button__link`, so the theme's own buttons and the
+   core Button block share one rule instead of two that must be kept in
+   step by hand. The computed result for a .btn is identical to the
+   reference's, and an editor-authored button is the same object. */
+/* The reference has exactly two looks: .btn (outline) and
+   .btn-solid (filled). Both are square — no border-radius
+   anywhere — and both are declared on the theme's .btn and on the
+   core Button block's link, so an editor-authored button and a
+   template button are the same object. */
+.btn,
+.wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 12.5px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 12px 22px;
+	border: 1px solid var(--accent);
+	color: var(--accent-light);
+	transition: all 0.25s ease;
+	white-space: nowrap;
+	cursor: pointer;
+	background: transparent;
+	text-decoration: none;
+}
+
+.btn:hover,
+.btn:focus-visible,
+.wp-block-button__link:hover,
+.wp-block-button__link:focus-visible {
+	background: var(--accent);
+	color: var(--bg);
+}
+
+.btn:focus-visible,
+.wp-block-button__link:focus-visible {
+	outline: 2px solid var(--paper);
+	outline-offset: 2px;
+}
+
+.btn--solid,
+.wp-block-button.is-style-solid .wp-block-button__link {
+	background: var(--accent);
+	color: var(--bg);
+}
+
+.btn--solid:hover,
+.wp-block-button.is-style-solid .wp-block-button__link:hover {
+	background: var(--accent-light);
+	border-color: var(--accent-light);
+}
+
+/* ---------- Header ---------- */
+/* The reference styles `header` and `footer` by element. They are styled
+   here by .site-header / .site-footer, because the page body is block
+   content: an element selector would match any header a Content block
+   put in a page. The values are the reference's, unchanged. The template
+   files are .php now, so the selectors could be elements again — the class
+   is kept anyway so that rule stays scoped to the theme's own chrome. */
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+	background: rgba(11, 24, 38, 0.92);
+	backdrop-filter: blur(10px);
+	border-bottom: 1px solid var(--rule);
+}
+
+.site-header .wrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 84px;
+	gap: 24px;
+}
+
+.mark {
+	display: flex;
+	align-items: center;
+}
+
+.mark .logo-plate {
+	display: flex;
+	align-items: center;
+	background: var(--paper);
+	padding: 7px 14px;
+	border-radius: 6px;
+	/* The reference sizes an <img> inside the plate to 38px tall. There
+	   is no logo file in the repository, so the plate holds the wordmark
+	   and is sized to occupy the same space. Uploading a Custom Logo
+	   replaces it, and .custom-logo below then carries the reference's
+	   own height. */
+	color: var(--navy);
+	font-family: 'Fraunces', serif;
+	font-weight: 500;
+	font-size: 19px;
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+}
+
+/* The reference's `.mark img { height: 38px; width: auto }`, applied to the
+   Custom Logo that replaces the wordmark. */
+.mark .custom-logo,
+.mark img {
+	display: block;
+	height: 38px;
+	width: auto;
+}
+
+.nav-links {
+	display: flex;
+	align-items: center;
+	gap: 40px;
+}
+
+.site-nav ul {
+	display: flex;
+	gap: 34px;
+	list-style: none;
+}
+
+.site-nav a {
+	font-size: 14px;
+	color: var(--ink-dim);
+	transition: color 0.2s ease;
+	position: relative;
+	padding-bottom: 4px;
+}
+
+.site-nav a::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 1px;
+	background: var(--accent-light);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+	color: var(--ink);
+}
+
+.site-nav a:hover::after,
+.site-nav a:focus-visible::after,
+.site-nav a[aria-current='page']::after {
+	transform: scaleX(1);
+}
+
+.site-nav a[aria-current='page'] {
+	color: var(--ink);
+}
+
+.site-nav a:focus-visible {
+	outline: 1px solid var(--accent-light);
+	outline-offset: 4px;
+}
+
+/* Deviation from the reference, which hides the nav outright under 980px
+   and leaves mobile visitors with no navigation. A toggle is added in its
+   place; see the 980px block below for where it appears. */
+.nav-toggle {
+	display: none;
+	background: none;
+	border: 1px solid var(--rule);
+	border-radius: 0;
+	color: var(--ink);
+	padding: 9px 13px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 12px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+
+/* ---------- Hero (home) ---------- */
+.hero {
+	padding: 120px 0 76px;
+	border-bottom: 1px solid var(--rule);
+	position: relative;
+	overflow: hidden;
+}
+
+.hero::after {
+	content: '';
+	position: absolute;
+	right: -120px;
+	top: -160px;
+	width: 520px;
+	height: 520px;
+	border: 1px solid var(--rule);
+	border-radius: 50%;
+	opacity: 0.5;
+}
+
+.hero-grid {
+	display: grid;
+	grid-template-columns: 1.15fr 0.85fr;
+	gap: 64px;
+	align-items: end;
+}
+
+.hero h1 {
+	font-size: clamp(38px, 5vw, 60px);
+	line-height: 1.06;
+	margin: 22px 0 26px;
+	max-width: 16ch;
+}
+
+.hero h1 em {
+	font-style: italic;
+	color: var(--accent-light);
+}
+
+.hero p.lede {
+	font-size: 17.5px;
+	color: var(--ink-dim);
+	max-width: 46ch;
+	margin-bottom: 34px;
+}
+
+.hero-actions {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.hero-note {
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 12.5px;
+	color: var(--slate);
+}
+
+.hero-side {
+	border-left: 1px solid var(--rule);
+	padding-left: 36px;
+}
+
+.stat-row {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.stat {
+	display: flex;
+	align-items: baseline;
+	gap: 14px;
+}
+
+/* .num and .mono are both on the element in the reference, so the
+   Fraunces family from this rule and the 0.04em tracking from .mono
+   both land. That is reproduced, not corrected. */
+.stat .num {
+	font-family: 'Fraunces', serif;
+	font-weight: 500;
+	font-size: 40px;
+	color: var(--accent-light);
+	line-height: 1;
+}
+
+.stat .label {
+	font-size: 13.5px;
+	color: var(--ink-dim);
+	line-height: 1.4;
+	max-width: 22ch;
+}
+
+/* ---------- Page hero (inner pages) ---------- */
+.page-hero {
+	padding: 96px 0 64px;
+	border-bottom: 1px solid var(--rule);
+}
+
+.page-hero h1 {
+	font-size: clamp(34px, 4.4vw, 50px);
+	margin: 18px 0 20px;
+	max-width: 22ch;
+}
+
+.page-hero p.lede {
+	font-size: 17px;
+	color: var(--ink-dim);
+	max-width: 60ch;
+}
+
+/* ---------- Ticker band (consultia-ticker plugin surface) ---------- */
+/* The plugin emits .ticker / .ticker-track and no CSS of its own. */
+.ticker {
+	background: var(--paper);
+	color: var(--navy);
+	overflow: hidden;
+	border-bottom: 1px solid var(--rule);
+	position: relative;
+}
+
+.ticker-track {
+	display: flex;
+	white-space: nowrap;
+	width: max-content;
+	animation: scroll-ticker 34s linear infinite;
+	padding: 14px 0;
+}
+
+.ticker-track span {
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 13px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 0 28px;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	border-right: 1px solid rgba(10, 74, 126, 0.18);
+	font-weight: 500;
+}
+
+.ticker-track span::before {
+	content: '●';
+	font-size: 6px;
+	color: var(--accent);
+	position: relative;
+	top: -2px;
+}
+
+@keyframes scroll-ticker {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+/* ---------- Section shell ---------- */
+/* The reference styles a bare `section` element. Every section here is
+   a Group block set to render as a <section>, so the reference's own
+   selector is used unchanged. */
+section {
+	padding: 104px 0;
+	border-bottom: 1px solid var(--rule);
+}
+
+section:last-of-type {
+	border-bottom: none;
+}
+
+.section-head {
+	max-width: 640px;
+	margin-bottom: 56px;
+}
+
+.section-head h2 {
+	font-size: clamp(28px, 3.2vw, 38px);
+	margin-top: 16px;
+}
+
+.section-head p {
+	color: var(--ink-dim);
+	margin-top: 16px;
+	font-size: 16px;
+	max-width: 56ch;
+}
+
+/* The inline link in the reference's services intro. */
+.section-head .section-head__link {
+	color: var(--accent-light);
+	border-bottom: 1px solid var(--rule);
+}
+
+/* ---------- Overview / lede ---------- */
+.overview blockquote {
+	font-family: 'Fraunces', serif;
+	font-weight: 400;
+	font-style: italic;
+	font-size: clamp(24px, 2.6vw, 32px);
+	line-height: 1.5;
+	color: var(--paper);
+	max-width: 1000px;
+	border-left: 2px solid var(--accent);
+	padding-left: 34px;
+}
+
+.overview .wp-block-quote cite {
+	display: block;
+	margin-top: 28px;
+	padding-left: 36px;
+	font-family: 'IBM Plex Mono', monospace;
+	font-style: normal;
+	font-size: 12.5px;
+	color: var(--slate);
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+}
+
+/* ---------- Services ---------- */
+.service-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1px;
+	background: var(--rule);
+	border: 1px solid var(--rule);
+}
+
+.service {
+	background: var(--bg);
+	padding: 34px 28px 30px;
+	transition: background 0.25s ease;
+}
+
+.service:hover {
+	background: var(--surface);
+}
+
+.service .tag {
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 11px;
+	color: var(--accent-light);
+	letter-spacing: 0.1em;
+}
+
+.service h3 {
+	font-size: 19px;
+	margin: 16px 0 12px;
+	line-height: 1.28;
+}
+
+.service p {
+	font-size: 14px;
+	color: var(--ink-dim);
+}
+
+/* ---------- Markets ---------- */
+.markets {
+	display: grid;
+	grid-template-columns: 0.9fr 1.1fr;
+	gap: 64px;
+	align-items: start;
+}
+
+.exchange-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.exchange-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 22px 0;
+	border-top: 1px solid var(--rule);
+}
+
+.exchange-list .exchange-row:last-child {
+	border-bottom: 1px solid var(--rule);
+}
+
+.exchange-row .name {
+	font-family: 'Fraunces', serif;
+	font-size: 22px;
+}
+
+.exchange-row .desc {
+	font-size: 13.5px;
+	color: var(--ink-dim);
+	max-width: 30ch;
+	text-align: right;
+}
+
+.markets-copy p {
+	color: var(--ink-dim);
+	margin-bottom: 18px;
+	font-size: 15.5px;
+}
+
+.markets-copy p:last-child {
+	margin-bottom: 0;
+}
+
+.markets-copy .callout {
+	margin-top: 28px;
+	padding: 22px 24px;
+	border: 1px solid var(--rule);
+	font-size: 14.5px;
+	color: var(--ink);
+}
+
+.markets-copy .callout .mono {
+	color: var(--accent-light);
+	display: block;
+	margin-bottom: 8px;
+	font-size: 11.5px;
+}
+
+/* ---------- Network / About ---------- */
+.network-cols {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 56px;
+}
+
+.network-col h3 {
+	font-size: 14px;
+	font-family: 'IBM Plex Mono', monospace;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--accent-light);
+	margin-bottom: 22px;
+	font-weight: 500;
+}
+
+.network-col ul {
+	list-style: none;
+}
+
+.network-col li {
+	padding: 16px 0;
+	border-top: 1px solid var(--rule);
+	font-family: 'Fraunces', serif;
+	font-size: 19px;
+}
+
+.network-col li:last-child {
+	border-bottom: 1px solid var(--rule);
+}
+
+.network-col li span {
+	display: block;
+	font-family: 'IBM Plex Sans', sans-serif;
+	font-size: 13px;
+	color: var(--ink-dim);
+	margin-top: 4px;
+}
+
+.story {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 64px;
+	align-items: start;
+}
+
+.story p {
+	color: var(--ink-dim);
+	margin-bottom: 18px;
+	font-size: 15.5px;
+}
+
+.story p:last-child {
+	margin-bottom: 0;
+}
+
+.story-figures {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	border-top: 1px solid var(--rule);
+}
+
+.story-figures .stat {
+	padding: 22px 0;
+	border-bottom: 1px solid var(--rule);
+}
+
+/* ---------- Contact ---------- */
+.contact-grid {
+	display: grid;
+	grid-template-columns: 0.9fr 1.1fr;
+	gap: 64px;
+	align-items: start;
+}
+
+.contact-details {
+	display: flex;
+	flex-direction: column;
+	gap: 28px;
+}
+
+.contact-item .mono {
+	display: block;
+	color: var(--accent-light);
+	font-size: 11.5px;
+	margin-bottom: 8px;
+}
+
+.contact-item a,
+.contact-item p {
+	font-family: 'Fraunces', serif;
+	font-size: 20px;
+}
+
+.contact-item p {
+	color: var(--ink-dim);
+	font-family: 'IBM Plex Sans', sans-serif;
+	font-size: 14.5px;
+	margin-top: 4px;
+}
+
+/* The reference sets these four properties inline on this one
+   paragraph. They live here instead: a stylesheet is the only place
+   a rule belongs in this theme. */
+.contact-item .contact-item__statement {
+	font-family: 'Fraunces', serif;
+	font-size: 20px;
+	color: var(--ink);
+	margin-top: 0;
+}
+
+form.contact-form {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.form-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.field label {
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 11.5px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--ink-dim);
+}
+
+.field input,
+.field textarea {
+	background: var(--surface);
+	border: 1px solid var(--rule);
+	color: var(--ink);
+	font-family: 'IBM Plex Sans', sans-serif;
+	font-size: 15px;
+	padding: 13px 14px;
+	resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+	outline: none;
+	border-color: var(--accent);
+}
+
+.field textarea {
+	min-height: 130px;
+}
+
+.form-submit {
+	align-self: flex-start;
+	margin-top: 6px;
+}
+
+.form-note {
+	font-size: 12.5px;
+	color: var(--slate);
+	margin-top: -4px;
+}
+
+/* ---------- CTA ---------- */
+.cta {
+	text-align: left;
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.cta-inner {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+	gap: 40px;
+	flex-wrap: wrap;
+}
+
+.cta h2 {
+	font-size: clamp(30px, 4vw, 46px);
+	max-width: 14ch;
+}
+
+.cta-actions {
+	display: flex;
+	gap: 16px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+	padding: 44px 0 40px;
+}
+
+.site-footer .foot-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 32px;
+	padding-bottom: 32px;
+	border-bottom: 1px solid var(--rule);
+	margin-bottom: 24px;
+}
+
+.site-footer .foot-brand {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	max-width: 320px;
+}
+
+.site-footer .foot-brand .logo-plate {
+	display: inline-flex;
+	align-items: center;
+	align-self: flex-start;
+	background: var(--paper);
+	padding: 6px 12px;
+	border-radius: 6px;
+	color: var(--navy);
+	font-family: 'Fraunces', serif;
+	font-weight: 500;
+	font-size: 16px;
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+}
+
+/* The reference's `footer .foot-brand img { height: 26px; width: auto }`. */
+.site-footer .foot-brand .custom-logo,
+.site-footer .foot-brand img {
+	display: block;
+	height: 26px;
+	width: auto;
+}
+
+.site-footer .foot-brand p {
+	font-size: 13px;
+	color: var(--ink-dim);
+}
+
+.site-footer .foot-nav {
+	display: flex;
+	gap: 48px;
+	flex-wrap: wrap;
+}
+
+.site-footer .foot-nav > div {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+/* The reference puts a bare run of <a> in each footer column, and the
+   12px gap above is the space between them. wp_nav_menu() emits a
+   <ul> of <li> instead, so the list takes over that role: the same
+   column, the same gap, and the markers the reference never had to
+   switch off are switched off here. */
+.site-footer .foot-nav ul {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	list-style: none;
+}
+
+.site-footer .foot-nav h4 {
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 11px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--slate);
+	margin-bottom: 2px;
+	font-weight: 500;
+}
+
+.site-footer .foot-nav a {
+	font-size: 13.5px;
+	color: var(--ink-dim);
+}
+
+.site-footer .foot-nav a:hover {
+	color: var(--accent-light);
+}
+
+.site-footer .foot-bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+.site-footer .mono {
+	font-size: 12px;
+	color: var(--slate);
+}
+
+/* ---------- Beyond the reference ---------- */
+/* The reference is four static pages and has no post index, single post
+   or 404 view, so there is nothing in it to copy here. The rules below
+   keep those three templates presentable in the same visual language:
+   the reference's own .page-hero masthead, its hairline-divided rows,
+   and its type. Nothing on the four landing pages depends on them. */
+.page-main {
+	padding: 96px 0 64px;
+}
+
+.page-main h1 {
+	font-size: clamp(34px, 4.4vw, 50px);
+	max-width: 22ch;
+	margin-bottom: 24px;
+}
+
+.page-main > h1 + .lede {
+	font-size: 17px;
+	color: var(--ink-dim);
+	max-width: 60ch;
+}
+
+.entry-content {
+	max-width: 62ch;
+	margin-top: 48px;
+	color: var(--ink-dim);
+}
+
+.entry-content h2,
+.entry-content h3 {
+	color: var(--ink);
+	margin: 48px 0 12px;
+}
+
+.entry-content a {
+	color: var(--accent-light);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+}
+
+.entry-content > * + * {
+	margin-top: 24px;
+}
+
+.post-list {
+	margin-top: 48px;
+	border-top: 1px solid var(--rule);
+}
+
+.post-list li {
+	border-bottom: 1px solid var(--rule);
+	padding: 24px 0;
+}
+
+.post-list a {
+	font-size: 18px;
+	font-family: 'Fraunces', serif;
+}
+
+.post-list time {
+	display: block;
+	font-family: 'IBM Plex Mono', monospace;
+	font-size: 11px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--slate);
+	margin-top: 8px;
+}
+
+/* ---------- Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.001ms !important;
+	}
+	.ticker-track {
+		animation: none;
+		transform: none;
+	}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+	.hero-grid {
+		grid-template-columns: 1fr;
+		gap: 44px;
+	}
+	.hero-side {
+		border-left: none;
+		border-top: 1px solid var(--rule);
+		padding-left: 0;
+		padding-top: 32px;
+	}
+	.stat-row {
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 32px;
+	}
+	.service-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.markets {
+		grid-template-columns: 1fr;
+	}
+	.exchange-row .desc {
+		text-align: left;
+		max-width: none;
+	}
+	.network-cols {
+		grid-template-columns: 1fr;
+		gap: 8px;
+	}
+	.story {
+		grid-template-columns: 1fr;
+		gap: 32px;
+	}
+	.contact-grid {
+		grid-template-columns: 1fr;
+	}
+	.form-row {
+		grid-template-columns: 1fr;
+	}
+
+	/* Deviation: the reference hides the nav under 980px with
+	   `nav ul { display: none }`, which leaves a phone visitor with no
+	   way to reach the other three pages. A toggle is shown in its place
+	   and .site-nav is revealed by it instead. */
+	.nav-toggle {
+		display: inline-flex;
+	}
+	.site-header .wrap {
+		height: auto;
+		padding-top: 14px;
+		padding-bottom: 14px;
+		flex-wrap: wrap;
+	}
+	.nav-links {
+		width: 100%;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 16px;
+	}
+	.site-nav {
+		display: none;
+	}
+	.site-nav.is-open {
+		display: block;
+	}
+	.site-nav ul {
+		flex-direction: column;
+		gap: 0;
+	}
+	.site-nav li {
+		border-top: 1px solid var(--rule);
+	}
+	.site-nav a {
+		display: block;
+		padding: 14px 0;
+	}
+}
+
+@media (max-width: 560px) {
+	.service-grid {
+		grid-template-columns: 1fr;
+	}
+	.wrap {
+		padding: 0 20px;
+	}
+	.hero {
+		padding: 90px 0 56px;
+	}
+	.page-hero {
+		padding: 76px 0 48px;
+	}
+	.cta-inner {
+		align-items: flex-start;
+	}
+	.site-footer .foot-top {
+		flex-direction: column;
+	}
+}
